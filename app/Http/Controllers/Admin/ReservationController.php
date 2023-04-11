@@ -44,7 +44,7 @@ class ReservationController extends Controller
         $request_date = Carbon::parse($request->res_date);
         foreach($table->reservation as $res)
         {
-            if ($res->res_date->format('y-m-d') == $request_date->format('y-m-d')){
+            if (Carbon::parse($res->res_date)->format('y-m-d') == $request_date->format('y-m-d')){
                 return back()->with('warning','this table is reservrd for this date.') ;
             }
         }
