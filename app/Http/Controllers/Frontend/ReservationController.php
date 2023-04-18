@@ -49,7 +49,8 @@ class ReservationController extends Controller
             return $value->res_date->format('y-m-d') == $reservation->res_date->format('y-m-d');
         })->pluck('table_id');
         $tables =Table::where('status',TableStatus::Avilable)
-            ->where('guest_number','>=',$reservation->guest_number);
+            ->where('guest_number','>=', $reservation->guest_number)
+            ->whereNotIn('id',$res_table_ids)->get();
         return view('reservations.step-two' ,compact('reservation','tables')) ;
     }
     public function storeStepTwo(Request $request)
