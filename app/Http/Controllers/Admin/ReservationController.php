@@ -63,24 +63,40 @@ class ReservationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Reservation $reservation)
     {
-        //
+        $tables = Table::where('status', TableStatus::Avilable)->get();
+        return view('admin.reservation.edit',compact('reservation','tables'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ReservationStoreRequest $request , Reservation $reservation)
     {
-        //
+        $table = Table::findOrFail($request->table_id);
+        if($request->guest_number > $table->guest_number){
+            return back()->with('warning','please choose the table base on guests');
+        } 
+        //date validation
+        $request_date = Carbon::parse($request->res_date);
+        $reservations = $table->reservation()->where('id','!=', $reservation->id)->get();
+        foreach($reservations as $res)
+        {
+            if (Carbon::parse($res->res_date)->format('y-m-d') == $request_date->format('y-m-d')){
+                return back()->with('warning','this table is reservrd for this date.') ;
+            }
+        }
+        $reservation->update($request->validated());
+        return to_route('admin.reservations.index')->with('success','Reservation Created Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Reservation $reservation)
     {
-        //
+        $reservation->delete();
+        return to_route('admin.reservations.index')->with('danger','Reservation deleted Successfully');
     }
 }

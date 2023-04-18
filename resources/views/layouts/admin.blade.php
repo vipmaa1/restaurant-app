@@ -10,12 +10,14 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        
 
         <!-- Scripts -->
+        
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> 
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased" >
         <div class="flex-col w-full md:flex md:flex-row md:min-h-screen">
             
                 <div @click.away="open = false" class="flex flex-col flex-shrink-0 w-full text-gray-700 bg-white md:w-64 dark:text-gray-200 dark:bg-gray-800" x-data="{ open: false }">
