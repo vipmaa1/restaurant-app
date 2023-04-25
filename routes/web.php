@@ -10,6 +10,8 @@ use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
 use App\Http\Controllers\Frontend\ReservationController as FrontendReservationController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TryController;
+use App\Models\Person;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [WelcomeController::class,'index']);
+Route::get('/', [WelcomeController::class,'index'])->name('wellcome');
 
 Route::get('/allcategories',[FrontendCategoryController::class,'index'])->name('categories.index');
 Route::get('/allcategories/{category}',[FrontendCategoryController::class,'show'])->name('categories.show');

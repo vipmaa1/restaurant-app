@@ -19,15 +19,34 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
+     
 
 
       <div class="bg-gray-200 shadow-md" x-data="{ isOpen: false }">
+        {{-- <div class="min-h-screen bg-gray-100"> --}}
+          {{-- @include('layouts.navigation') --}}
+  
+          {{-- <!-- Page Heading -->
+          @if (isset($header))
+              <header class="bg-white shadow">
+                  <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                      {{ $header }}
+                  </div>
+              </header>
+          @endif
+   --}}
+          <!-- Page Content -->
+          {{-- <main>
+              {{ $slot }}
+          </main> --}}
+      {{-- </div> --}}
         <nav class="container px-6 py-8 mx-auto md:flex md:justify-between md:items-center">
           <div class="flex items-center justify-between">
             <a class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 md:text-2xl hover:text-green-400"
               href="/">
               TailFood
             </a>
+            
             <!-- Mobile menu button -->
             <div @click="isOpen = !isOpen" class="flex md:hidden">
               <button type="button" class="text-gray-800 hover:text-gray-400 focus:outline-none focus:text-gray-400"
@@ -54,6 +73,19 @@
               href="{{ route('reservations.step.one') }}">Make Reservation</a>
             
           </div>
+          
+          <div class="d-flex justify-content-end inline-flex items-center  px-6 py-2 text-base font-bold leading-6 text-white bg-gray-400 rounded-full  md:w-auto hover:bg-green-500 focus:outline-none">
+            @if (Auth::user()?->is_admin)
+            <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                {{ __('Admin') }}
+            </x-nav-link>
+            @else 
+            <x-nav-link>
+                <a href="{{ route('dashboard') }}">Profile</a>
+            </x-nav-link>
+            @endif
+         </div>
+
         </nav>
       </div>
 

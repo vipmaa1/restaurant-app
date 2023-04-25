@@ -12,12 +12,16 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                     @if (Auth::user()->is_admin)
                     <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
                         {{ __('Admin') }}
+                    </x-nav-link>
+                    @else 
+                    <x-nav-link>
+                        <a href="{{ route('dashboard') }}">Profile</a>
                     </x-nav-link>
                     @endif
                 </div>
@@ -41,6 +45,9 @@
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('wellcome')">
+                            {{ __('Home') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
