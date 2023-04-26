@@ -46,7 +46,7 @@ class ReservationController extends Controller
     {
         $reservation = $request->session()->get('reservation');
         $res_table_ids = Reservation::orderBy('res_date')->get()->filter(function ($value) use ($reservation){
-            return $value->res_date->format('y-m-d') == $reservation->res_date->format('y-m-d');
+            return Carbon::parse($value->res_date)->format('y-m-d') == Carbon::parse($reservation->res_date)->format('y-m-d');
         })->pluck('table_id');
         $tables =Table::where('status',TableStatus::Avilable)
             ->where('guest_number','>=', $reservation->guest_number)
